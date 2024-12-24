@@ -114,14 +114,14 @@ export class AuthService {
         { sub: userId, email, type: userType },
         {
           secret: this.configService.get<string>('JWT_SECRET'),
-          expiresIn: '15m',
+          expiresIn: '7d',
         },
       ),
       this.jwtService.signAsync(
         { sub: userId, email, type: userType },
         {
           secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-          expiresIn: '7d',
+          expiresIn: '30d',
         },
       ),
     ]);

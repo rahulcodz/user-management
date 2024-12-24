@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../entities/user.entity';
@@ -46,6 +50,19 @@ export class UserService {
       return currentUser;
     } catch (error) {
       throw new NotFoundException(error.message);
+    }
+  }
+
+  async createNew(createUserDto: CreateUserDto) {
+    try {
+      const hashedPassword = await hashPassword(createUserDto.password);
+      const createdUser = new this.userModel({
+        ...createUserDto,
+        password: hashedPassword,
+      });
+      return createdUser.save();
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
     }
   }
 }

@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Controller, useForm } from 'react-hook-form';
 
 type FormData = {
-  username: string;
+  userName: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -18,6 +19,7 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const register = useAuthStore((state) => state.register);
   const [loading, setLoading] = useState(false);
+  const [register_errors, set_register_errors] = useState('');
 
   // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
@@ -44,10 +46,16 @@ export function RegisterPage() {
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    setLoading(true);
-    await register(data);
-    navigate('/auth/login');
-    setLoading(false);
+    try {
+      setLoading(true);
+      data.name = data.userName;
+      await register(data);
+      navigate('/auth/login');
+      setLoading(false);
+    } catch (error) {
+      set_register_errors('Something went wrong, please try again !!');
+      setLoading(false);
+    }
   };
 
   const password = watch('password');
@@ -86,9 +94,9 @@ export function RegisterPage() {
           </div>
 
           <div className='space-y-2'>
-            <Label htmlFor='username'>Username</Label>
+            <Label htmlFor='userName'>Username</Label>
             <Controller
-              name='username'
+              name='userName'
               control={control}
               rules={{
                 required: 'Username is required',
@@ -96,7 +104,7 @@ export function RegisterPage() {
               render={({ field }) => (
                 <Input
                   {...field}
-                  id='username'
+                  id='userName'
                   type='text'
                   placeholder='johndoe'
                   // required
@@ -104,7 +112,7 @@ export function RegisterPage() {
                 />
               )}
             />
-            {errors.username && <p className='text-red-500'>{errors.username.message}</p>}
+            {errors.userName && <p className='text-red-500'>{errors.userName.message}</p>}
           </div>
 
           <div className='space-y-2'>
@@ -168,6 +176,8 @@ export function RegisterPage() {
           <Button type='submit' className='w-full' disabled={loading}>
             {loading ? 'Loading...' : 'Register'}
           </Button>
+
+          {register_errors && <p className='text-red-500'>{register_errors}</p>}
         </form>
       </CardContent>
     </Card>

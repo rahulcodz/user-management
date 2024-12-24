@@ -1,3 +1,4 @@
+import { userService } from '@/services/api/users';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -16,9 +17,12 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       user: null,
       isAuthenticated: false,
-      login: (token, user) => set({ token, user, isAuthenticated: true }),
+      login: async (token, user) => {
+        set({ token, user, isAuthenticated: true });
+      },
       register: async (user) => {
-        console.log(user);
+        const res = await userService.registerUser(user);
+        return res;
       },
       logout: () => set({ token: null, user: null, isAuthenticated: false }),
     }),

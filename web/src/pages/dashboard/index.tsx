@@ -3,8 +3,10 @@ import { useUsers } from '@/hooks/api/use-users';
 import { usePosts } from '@/hooks/api/use-posts';
 
 export function DashboardPage() {
-  const { data: users } = useUsers();
-  const { data: posts } = usePosts();
+  // const { data: users } = useUsers();
+  // const { data: posts } = usePosts();
+  const users = {};
+  const posts = {};
 
   return (
     <div className='space-y-6'>

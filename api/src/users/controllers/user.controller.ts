@@ -23,6 +23,13 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
+  @Post('/create')
+  async createNew(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createNew(createUserDto);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
     return this.userService.findAll();
