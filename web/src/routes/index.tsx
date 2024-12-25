@@ -4,9 +4,9 @@ import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { LoginPage } from '@/pages/auth/login';
 import { DashboardPage } from '@/pages/dashboard';
 import { UsersPage } from '@/pages/users';
-import { PostsPage } from '@/pages/posts';
 import MainLayout from '@/layouts/MainLayout';
 import { RegisterPage } from '@/pages/auth/register';
+import PostsPage from '@/pages/posts';
 
 export const router = createBrowserRouter([
   {

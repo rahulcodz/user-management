@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/user.module';
 import { databaseConfig } from './database/database.config';
+import { TaskModule } from './tasks/task.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { databaseConfig } from './database/database.config';
     MongooseModule.forRootAsync(databaseConfig),
     AuthModule,
     UsersModule,
+    TaskModule,
   ],
 })
 export class AppModule {}

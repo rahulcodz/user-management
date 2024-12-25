@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useUsers } from '@/hooks/api/use-users';
-import { usePosts } from '@/hooks/api/use-posts';
+// import { useUsers } from '@/hooks/api/use-users';
+// import { usePosts } from '@/hooks/api/use-posts';
 
 export function DashboardPage() {
   // const { data: users } = useUsers();
